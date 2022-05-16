@@ -1,1 +1,1 @@
-web [aquí](https://play.google.com/store/apps/details?id=com.iptesting&hl=es&gl=US)
+Aqui puedes ver el codigo fuente de [Ip Testing](https://play.google.com/store/apps/details?id=com.iptesting), si quieres ver el proyecto en funcionamiento, escarga la app desde este [enlace](https://play.google.com/store/apps/details?id=com.iptesting)
