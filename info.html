@@ -1,0 +1,366 @@
+<html><head>
+<script src='file:///android_asset/app.js'></script>
+<meta charset="utf-8">
+<meta name="viewport" content="widtd=device-width, initial-scale=1">
+<meta name="author" content="Ángel Alonso">
+<meta property="og:title" content="Ip Testing">
+  <title>Ip Testing</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head><body onload="app.Start()">
+
+<script>
+        theme = app.CreateTheme( "Light" );
+        theme.AdjustColor( 35, 0, -10 );
+        theme.SetBackColor( "#ff926b" );
+        theme.SetBtnTextColor( "black" );
+        theme.SetButtonOptions( "custom" );
+        theme.SetButtonStyle( "white","white",2,"#999999",0,1,"#ff9000" );
+        theme.SetCheckBoxOptions( "dark" );
+        theme.SetTextEditOptions( "underline" );
+        theme.SetDialogColor( "#ffffffff" );
+        theme.SetDialogBtnColor( "#ffeeeeee" );
+        theme.SetDialogBtnTxtColor( "#ff666666" );
+        theme.SetTitleHeight( 42 );
+        theme.SetTitleColor( "#ff888888" ); 
+        theme.SetTitleDividerColor( "#ff0099CC" );
+        theme.SetTextColor( "#ff666666" );
+        app.SetTheme( theme );
+
+function OnStart() {
+    app.SetStatusBarColor( "#ff926b" );
+    app.SetNavBarColor( "#ff926b" );
+    app.EnableBackKey( false );
+    app.PreventScreenLock(true);
+	app.SetOrientation("Portrait");  
+
+    layHoriz = app.CreateLayout( "linear", "fillxy" );
+      
+    layMain = app.CreateLayout( "Linear", "VCenter" );
+    layMain.SetSize( 1, app.IsPortrait()?0.92:0.85 )
+    layHoriz.AddChild( layMain );
+    
+	
+		
+	layHoriz = app.CreateLayout( "linear", "Horizontal" );	
+	
+	app.AddLayout( layHoriz );
+	
+    labanner = app.CreateLayout("Linear", "Left" );
+    banner = app.CreateText( "", 1,-1, "FontAwesome" );   
+    banner.SetBackColor( "#ff926b" );
+    banner.SetTextSize( '30' ); 
+    banner.SetPadding( 12,10,12,10, "dip" );
+    banner.SetOnTouch( desplegable );
+    labanner.AddChild( banner );
+    app.AddLayout( labanner );
+
+
+    la = app.CreateLayout("Linear", "Absolute," ); 
+    b2 = app.CreateText( "[fa-bars]", -1,-1, "FontAwesome" );   
+    b2.SetBackColor( "#ff926b" );
+    b2.SetTextSize( '30' ); 
+    b2.SetPadding( 12,10,12,10, "dip" );
+    b2.SetOnTouch( desplegable );
+    la.AddChild( b2 );
+    app.AddLayout( la );
+
+	CreateDrawer();
+	app.AddLayout( layHoriz );
+	app.AddDrawer( drawerScroll, "Left", drawerWidth );
+
+}
+
+function desplegable() {
+    app.OpenDrawer( "Left" );
+    }
+
+function OnBack() {
+            var sino = app.CreateYesNoDialog( "¿Desea salir de Ip Testing?" );
+            sino.SetButtonText( "Si","No" );
+            sino.SetOnTouch(function(result){ if(result=="Yes") app.Exit(); } );
+            sino.Show();
+            }
+
+function web_OnProgess( progress ) {
+	app.Debug( "progress = " + progress );
+	if( progress==100 ) app.HideProgress();
+}
+
+
+function web_OnProgess( progress ) {
+	app.Debug( "progress = " + progress );
+	if( progress==100 ) app.HideProgress();
+}
+
+
+function CreateDrawer() {
+	drawerWidth = 0.75;
+    drawerScroll = app.CreateScroller( drawerWidth, -1, "FillY" );
+    drawerScroll.SetBackColor( "#f79071" );
+	layDrawer = app.CreateLayout( "Linear", "Left" );
+	drawerScroll.AddChild( layDrawer );
+	
+	layDrawerTop = app.CreateLayout( "Absolute" );
+	layDrawerTop.SetBackground( "Img/fondo.png" );
+	layDrawerTop.SetSize( drawerWidth, 0.23 );
+	layDrawer.AddChild( layDrawerTop );
+	
+	var img = app.CreateImage( "Img/logo.png", 0.15 );
+	img.SetPosition( drawerWidth*0.06, 0.04 );
+	layDrawerTop.AddChild( img );
+	
+	var txtUser = app.CreateText( "Ip Testing",-1,-1,"Bold");
+	txtUser.SetPosition( drawerWidth*0.07, 0.155 );
+	txtUser.SetTextColor( "White" );
+	txtUser.SetTextSize( 25.7, "dip" );
+	layDrawerTop.AddChild( txtUser );
+	
+	
+	var layMenu = app.CreateLayout( "Linear", "Left" );
+	layDrawer.AddChild( layMenu );
+
+
+    var listItems = "Mascara de red decimal punteado::[fa-minus],Mascara de red decimal punteado::[fa-minus],Calculadora de subred de clase C::[fa-minus],Número de direcciones requeridas para la máscara de red::[fa-minus],Dirección IP a binario y hexadecimal::[fa-minus],Máscara de red para la cantidad de direcciones utilizables::[fa-minus],Conversores::[fa-minus],QQQQQQQQQQQ::[fa-minus]";
+    lstMenu1 = app.CreateList( listItems, drawerWidth, -1, "Menu,Expand" );
+    lstMenu1.SetColumnWidths( -1, 0.40, 0.18 );
+    lstMenu1.SelectItemByIndex( 0, true );
+    lstMenu1.SetItemByIndex( 0, "Calculadora de red y dirección IP");
+    lstMenu1.SetOnTouch( lstMenu_OnTouch );
+    layMenu.AddChild( lstMenu1 );
+    
+    var sep = app.CreateImage( null, drawerWidth,0.001,"fix", 2,2 );
+    sep.SetSize( -1, 1, "px" );
+    sep.SetColor( "#cccccc" );
+    layMenu.AddChild( sep );
+    
+	
+    var listItems = "Ayuda::[fa-info-circle]";
+    lstMenu2 = app.CreateList( listItems, drawerWidth, -1, "Menu,Expand" );
+    lstMenu2.SetColumnWidths( -1, 0.35, 0.18 );
+    lstMenu2.SetOnTouch( lstMenu_OnTouch );
+    layMenu.AddChild( lstMenu2 );
+
+	txtTitle = app.CreateText( "App desarrollada por Ángel Alonso",-1,-1,"Left");
+	txtTitle.SetTextColor( "#666666" );
+	txtTitle.SetMargins( 16,12,0,0, "dip" );
+	txtTitle.SetTextSize( 14, "dip" );
+	layMenu.AddChild( txtTitle );	
+
+}
+
+function lstMenu_OnTouch( title, body, type, index ) {
+    app.CloseDrawer( "Left" );
+    
+    if( this==lstMenu1 ) lstMenu2.SelectItemByIndex(-1);
+    else lstMenu1.SelectItemByIndex(-1);
+    this.SelectItemByIndex( index, true );
+    
+    title = title.replace(/Calculadora de red y dirección IP/gi,'pag1');
+    title = title.replace(/Mascara de red decimal punteado/gi,'pag2');
+    title = title.replace(/Calculadora de subred de clase C/gi,'pag3');
+    title = title.replace(/Número de direcciones requeridas para la máscara de red/gi,'pag4');
+    title = title.replace(/Dirección IP a binario y hexadecimal/gi,'pag5');
+    title = title.replace(/Máscara de red para la cantidad de direcciones utilizables/gi,'pag7');
+    title = title.replace(/Conversores/gi,'pag8');
+    title = title.replace(/QQQQQQQQQQQ/gi,'pag9');
+    title = title.replace(/Ayuda/gi,'info');
+
+    app.RemoveLayout(layHoriz);
+    app.RemoveLayout(layMain);
+    app.RemoveLayout(labanner);
+    app.RemoveLayout(la);
+    app.RemoveLayout(layDrawer);
+    app.RemoveLayout(layDrawerTop);
+
+
+location.href= title + ".html"
+
+    
+}
+
+
+function OnDrawer( side, state ) {
+    console.log( side + " : " + state );
+}
+
+function OnMenu( name ) {
+    app.OpenDrawer();
+}
+
+function borrar() {
+    location.reload();
+    }
+
+function sys_OnInput( data ) {
+    txt.Log( data )
+ 
+    setTimeout( Scroll, 100 )
+}
+
+function sys_OnError( data ) {
+    txt.Log( data, "Red" )
+    txt.Log( " ", "Red" )
+    txt.Log( " ", "Red" )
+    txt.Log( " ", "Red" )
+    txt.Log( " ", "Red" )
+ 
+    setTimeout( Scroll, 100 )
+}
+
+function cargar() {
+    var fin = edt.GetText()
+    if (fin==="") {} else {
+    var cmd = "ping -c 1 " + fin
+    sys = app.CreateSysProc( "sh" )
+    sys.SetOnInput( sys_OnInput )
+    sys.SetOnError( sys_OnError )
+    sys.Out( cmd+"\n" )
+    }}
+
+function app_OnShowKeyBoard( shown ) {
+    var kbh = app.GetKeyboardHeight() / app.GetDisplayHeight()
+    
+    if( shown ) scroll.SetSize( 0.95, 0.9-kbh )
+    else scroll.SetSize( 0.95, 0.9 )
+    Scroll()
+}
+
+function Scroll() {
+    scroll.ScrollTo( 0, 999 )
+}
+</script>
+
+<style>
+table, th, td {
+    font-size: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+</style>
+
+<br><br><br>
+<h3>DIRECCIÓN IP</h3>
+<p>Inicialmente se muestra tu dirección IP, la IP real desde la que te conectas. Esta IP puedes modificarla para realizar el subneteo.</p>
+<br>
+
+<h3>MÁSCARA</h3>
+<p>Inicialmente se muestra la máscara de red según la Clase de la DIRECCIÓN IP, para cálculos de redes classful, pero si deseas realizar subneteo con VLSM (Variable Length Subnet Mask), puede ser modificada. Selecciona la máscara de red en el formato que desees, ya que dispones de tres formatos distintos para la elección de la máscara de red.</p>
+
+<h3>RED</h3>
+<p>Muestra la red definida por la DIRECCIÓN IP y la MÁSCARA elegidas en los campos anteriores.</p>
+
+<h3>RANGO HOSTS</h3>
+<p>Muestra el rango de direcciónes IP, pertenecientes a la red, que se podrán configurar en los hosts.</p>
+
+<h3>BROADCAST</h3>
+<p>Muestra la dirección de broadcast de la red. Esta es una dirección especial que apunta a todos los host activos de una red IP.</p>
+
+<h3>TIPO</h3>
+<p>Muestra dos características implícitas de la DIRECCIÓN IP. IP pública o IP privada. Las IP's privadas son aquellas que pertenecen al siguiente rango de IP's</p>
+
+<table>
+<tr>
+	<td>Rango de direcciones IP</td>
+	<td>Número de IP's</td>
+	<td>Descripción de la clase</td>
+<tr>
+<tr>
+	<td>10.0.0.0 – 10.255.255.255</td>
+	<td>16.777.216</td>
+	<td>clase A simple</td>
+<tr>
+<tr>
+	<td>172.16.0.0 – 172.31.255.255</td>
+	<td>1.048.576</td>
+	<td>16 clases B continuas</td>
+<tr>
+<tr>
+	<td>192.168.0.0 – 192.168.255.255</td>
+	<td>65.536</td>
+	<td>256 clases C continuas</td>
+<tr>
+<tr>
+	<td>169.254.0.0 – 169.254.255.255</td>
+	<td>65.536</td>
+	<td>clase B simple</td>
+<tr>
+</table>
+
+<p>La Clase de la dirección IP, tiene sentido en redes del tipo classful y se decide según la siguiente tabla</p>
+
+
+
+<table id="clase">
+<tr>
+	<td>Clase</td>
+	<td>Bits iniciales de la ip </td>
+	<td>Nª de bis de la mascara de red</td>
+	<td>Ip inicial</td>
+	<td>Ip final</td>
+<tr>
+<tr>
+	<td>A</td>
+	<td>0</td>
+	<td>8</td>
+	<td>0.0.0.0</td>
+	<td>127.255.255.255</td>
+<tr>
+<tr>
+	<td>B</td>
+	<td>10</td>
+	<td>16</td>
+	<td>128.0.0.0</td>
+	<td>191.255.255.255</td>
+<tr>
+<tr>
+	<td>C</td>
+	<td>110</td>
+	<td>24</td>
+	<td>192.0.0.0</td>
+	<td>223.255.255.255</td>
+<tr>
+<tr>
+	<td>D (multicast)</td>
+	<td>1110</td>
+	<td>no definido</td>
+	<td>224.0.0.0</td>
+	<td>239.255.255.255</td>
+<tr>
+<tr>
+	<td>E (reservada)</td>
+	<td>1111</td>
+	<td>no definido</td>
+	<td>240.0.0.0</td>
+	<td>255.255.255.255</td>
+<tr>
+</table>
+
+
+
+<h3>HEXADECIMAL</h3>
+<p>Muestra la conversión a hexadecimal de la DIRECCIÓN IP.</p>
+
+<h3>BINARIO</h3>
+<p>Muestra la conversión a binario de la DIRECCIÓN IP.</p>
+
+<p>Mediante un código de colores se puede ver de manera visual los bits de la DIRECCION IP que identifican a la red y al host. También los bits empleados para el cálculo de subred.</p>
+<a style="color:red;"> - bit que identifica la red</a>
+<br>
+<a style="color:green;"> - bit que identifica al host</a>
+<br><br>
+
+<center>
+<table>
+  <tr>
+    <th><a style="color:red;">11000000.1</a><a style="color:green;">0101000.00001010.00000001</a></th>
+  </tr>
+</table>
+</center>
+
+
+<h3>CÁLCULO DE SUBRED</h3>
+<p>Aquí es donde realmente se configuran los parámetros para el subneteo de la red. Puedes seleccionar la máscara de subred, que siempre será igual o superior a la máscara de la red original. Puedes elegir el número de hosts que se podrán conectar en cada subred. O puedes elegir el número de subredes que deseas obtener. Todos estos parámetros son dependientes entre si. Por ello si modificas uno, se modificará el resto. Al pulsar el botón LISTAR, se abrirá una ventana emergente que donde se listarán todas las subredes resultantes del subneteo.</p>
+
+<br>
+</body></html>

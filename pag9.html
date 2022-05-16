@@ -1,0 +1,284 @@
+<html><head>
+<script src='file:///android_asset/app.js'></script>
+<meta charset="utf-8">
+<meta name="viewport" content="widtd=device-width, initial-scale=1">
+<meta name="author" content="Ángel Alonso">
+<meta property="og:title" content="Ip Testing">
+  <title>Ip Testing</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head><body onload="app.Start()"><br><br><br>
+
+<script>
+        theme = app.CreateTheme( "Light" );
+        theme.AdjustColor( 35, 0, -10 );
+        theme.SetBackColor( "#ff926b" );
+        theme.SetBtnTextColor( "black" );
+        theme.SetButtonOptions( "custom" );
+        theme.SetButtonStyle( "white","white",2,"#999999",0,1,"#ff9000" );
+        theme.SetCheckBoxOptions( "dark" );
+        theme.SetTextEditOptions( "underline" );
+        theme.SetDialogColor( "#ffffffff" );
+        theme.SetDialogBtnColor( "#ffeeeeee" );
+        theme.SetDialogBtnTxtColor( "#ff666666" );
+        theme.SetTitleHeight( 42 );
+        theme.SetTitleColor( "#ff888888" ); 
+        theme.SetTitleDividerColor( "#ff0099CC" );
+        theme.SetTextColor( "#ff666666" );
+        app.SetTheme( theme );
+
+function OnStart() {
+    app.SetStatusBarColor( "#ff926b" );
+    app.SetNavBarColor( "#ff926b" );
+    app.EnableBackKey( false );
+    app.PreventScreenLock(true);
+	app.SetOrientation("Portrait");  
+
+    lay = app.CreateLayout( "linear", "fillxy" );
+    scroll = app.CreateScroller( 0.8, 0.2 )
+    scroll.SetMargins( 0,200,0,0, "px" )
+    scroll.SetBackColor( "White" )
+    lay.AddChild( scroll )
+      
+	txt = app.CreateText( "", 5.0,-1, "Log,Monospace" )
+	txt.SetTextSize( 11 );
+	txt.SetBackColor( "White" )
+	txt.SetLog( 5 )
+	scroll.AddChild( txt )
+	
+    edt = app.CreateTextEdit( "", 0.7, -1, "SingleLine" )
+    edt.SetMargins( 0,8,0,0, "dip" )
+    edt.SetBackColor( "White" )
+    edt.SetHint( "Ip o Url" )
+    lay.AddChild( edt )
+
+    layHoriz = app.CreateLayout( "Linear", "Horizontal" )
+    lay.AddChild( layHoriz )
+    
+    btncargar = app.CreateButton( "CARGAR" )
+    btncargar.SetMargins( 0,8,0,0, "dip" )
+    btncargar.SetOnTouch( cargar )
+    layHoriz.AddChild( btncargar )
+    
+    btnborrar = app.CreateButton( "BORRAR" )
+    btnborrar.SetMargins( 0,8,0,0, "dip" )
+    btnborrar.SetOnTouch( borrar )
+    layHoriz.AddChild( btnborrar )
+
+	app.AddLayout( lay )
+
+	app.SetDebugEnabled( false )
+	
+
+
+
+
+
+
+
+
+
+
+
+    layMain = app.CreateLayout( "Linear", "VCenter" );
+    layMain.SetSize( 1, app.IsPortrait()?0.92:0.85 )
+    lay.AddChild( layMain );
+    
+	
+		
+	
+	app.AddLayout( lay );
+	
+    labanner = app.CreateLayout("Linear", "Left" );
+    banner = app.CreateText( "", 1,-1, "FontAwesome" );   
+    banner.SetBackColor( "#ff926b" );
+    banner.SetTextSize( '30' ); 
+    banner.SetPadding( 12,10,12,10, "dip" );
+    banner.SetOnTouch( desplegable );
+    labanner.AddChild( banner );
+    app.AddLayout( labanner );
+
+
+    la = app.CreateLayout("Linear", "Absolute," ); 
+    b2 = app.CreateText( "[fa-bars]", -1,-1, "FontAwesome" );   
+    b2.SetBackColor( "#ff926b" );
+    b2.SetTextSize( '30' ); 
+    b2.SetPadding( 12,10,12,10, "dip" );
+    b2.SetOnTouch( desplegable );
+    la.AddChild( b2 );
+    app.AddLayout( la );
+
+	CreateDrawer();
+	app.AddLayout( lay );
+	app.AddDrawer( drawerScroll, "Left", drawerWidth );
+
+}
+
+function desplegable() {
+    app.OpenDrawer( "Left" );
+    }
+
+function OnBack() {
+            var sino = app.CreateYesNoDialog( "¿Desea salir de Ip Testing?" );
+            sino.SetButtonText( "Si","No" );
+            sino.SetOnTouch(function(result){ if(result=="Yes") app.Exit(); } );
+            sino.Show();
+            }
+
+function web_OnProgess( progress ) {
+	app.Debug( "progress = " + progress );
+	if( progress==100 ) app.HideProgress();
+}
+
+
+function web_OnProgess( progress ) {
+	app.Debug( "progress = " + progress );
+	if( progress==100 ) app.HideProgress();
+}
+
+
+function CreateDrawer() {
+	drawerWidth = 0.75;
+    drawerScroll = app.CreateScroller( drawerWidth, -1, "FillY" );
+    drawerScroll.SetBackColor( "#f79071" );
+	layDrawer = app.CreateLayout( "Linear", "Left" );
+	drawerScroll.AddChild( layDrawer );
+	
+	layDrawerTop = app.CreateLayout( "Absolute" );
+	layDrawerTop.SetBackground( "Img/fondo.png" );
+	layDrawerTop.SetSize( drawerWidth, 0.23 );
+	layDrawer.AddChild( layDrawerTop );
+	
+	var img = app.CreateImage( "Img/logo.png", 0.15 );
+	img.SetPosition( drawerWidth*0.06, 0.04 );
+	layDrawerTop.AddChild( img );
+	
+	var txtUser = app.CreateText( "Ip Testing",-1,-1,"Bold");
+	txtUser.SetPosition( drawerWidth*0.07, 0.155 );
+	txtUser.SetTextColor( "White" );
+	txtUser.SetTextSize( 25.7, "dip" );
+	layDrawerTop.AddChild( txtUser );
+	
+	
+	var layMenu = app.CreateLayout( "Linear", "Left" );
+	layDrawer.AddChild( layMenu );
+
+
+    var listItems = "Mascara de red decimal punteado::[fa-minus],Mascara de red decimal punteado::[fa-minus],Calculadora de subred de clase C::[fa-minus],Número de direcciones requeridas para la máscara de red::[fa-minus],Dirección IP a binario y hexadecimal::[fa-minus],Máscara de red para la cantidad de direcciones utilizables::[fa-minus],Conversores::[fa-minus],QQQQQQQQQQQ::[fa-minus]";
+    lstMenu1 = app.CreateList( listItems, drawerWidth, -1, "Menu,Expand" );
+    lstMenu1.SetColumnWidths( -1, 0.40, 0.18 );
+    lstMenu1.SelectItemByIndex( 0, true );
+    lstMenu1.SetItemByIndex( 0, "Calculadora de red y dirección IP");
+    lstMenu1.SetOnTouch( lstMenu_OnTouch );
+    layMenu.AddChild( lstMenu1 );
+    
+    var sep = app.CreateImage( null, drawerWidth,0.001,"fix", 2,2 );
+    sep.SetSize( -1, 1, "px" );
+    sep.SetColor( "#cccccc" );
+    layMenu.AddChild( sep );
+    
+	
+    var listItems = "Ayuda::[fa-info-circle]";
+    lstMenu2 = app.CreateList( listItems, drawerWidth, -1, "Menu,Expand" );
+    lstMenu2.SetColumnWidths( -1, 0.35, 0.18 );
+    lstMenu2.SetOnTouch( lstMenu_OnTouch );
+    layMenu.AddChild( lstMenu2 );
+
+	txtTitle = app.CreateText( "App desarrollada por Ángel Alonso",-1,-1,"Left");
+	txtTitle.SetTextColor( "#666666" );
+	txtTitle.SetMargins( 16,12,0,0, "dip" );
+	txtTitle.SetTextSize( 14, "dip" );
+	layMenu.AddChild( txtTitle );	
+
+}
+
+function lstMenu_OnTouch( title, body, type, index ) {
+    app.CloseDrawer( "Left" );
+    
+    if( this==lstMenu1 ) lstMenu2.SelectItemByIndex(-1);
+    else lstMenu1.SelectItemByIndex(-1);
+    this.SelectItemByIndex( index, true );
+    
+    title = title.replace(/Calculadora de red y dirección IP/gi,'p');
+    title = title.replace(/Mascara de red decimal punteado/gi,'pag2');
+    title = title.replace(/Calculadora de subred de clase C/gi,'pag3');
+    title = title.replace(/Número de direcciones requeridas para la máscara de red/gi,'pag4');
+    title = title.replace(/Dirección IP a binario y hexadecimal/gi,'pag5');
+    title = title.replace(/Máscara de red para la cantidad de direcciones utilizables/gi,'pag7');
+    title = title.replace(/Conversores/gi,'pag8');
+    title = title.replace(/QQQQQQQQQQQ/gi,'pag9');
+    title = title.replace(/Ayuda/gi,'info');
+
+    app.RemoveLayout(lay);
+    app.RemoveLayout(layHoriz);
+    app.RemoveLayout(layMain);
+    app.RemoveLayout(labanner);
+    app.RemoveLayout(la);
+    app.RemoveLayout(layDrawer);
+    app.RemoveLayout(layDrawerTop);
+
+    location.href= title + ".html"
+
+    
+}
+
+
+function OnDrawer( side, state ) {
+    console.log( side + " : " + state );
+}
+
+function OnMenu( name ) {
+    app.OpenDrawer();
+}
+
+function borrar() {
+    app.RemoveLayout(lay);
+    app.RemoveLayout(layHoriz);
+    app.RemoveLayout(layMain);
+    app.RemoveLayout(labanner);
+    app.RemoveLayout(la);
+    app.RemoveLayout(layDrawer);
+    app.RemoveLayout(layDrawerTop);
+    
+    location.href="pag9.html";
+    }
+
+function sys_OnInput( data ) {
+    txt.Log( data )
+ 
+    setTimeout( Scroll, 100 )
+}
+
+function sys_OnError( data ) {
+    txt.Log( data, "Red" )
+    txt.Log( " ", "Red" )
+    txt.Log( " ", "Red" )
+    txt.Log( " ", "Red" )
+    txt.Log( " ", "Red" )
+ 
+    setTimeout( Scroll, 100 )
+}
+
+function cargar() {
+    var fin = edt.GetText()
+    if (fin==="") {} else {
+    var cmd = "ping -c 1 " + fin
+    sys = app.CreateSysProc( "sh" )
+    sys.SetOnInput( sys_OnInput )
+    sys.SetOnError( sys_OnError )
+    sys.Out( cmd+"\n" )
+    }}
+
+function app_OnShowKeyBoard( shown ) {
+    var kbh = app.GetKeyboardHeight() / app.GetDisplayHeight()
+    
+    if( shown ) scroll.SetSize( 0.95, 0.9-kbh )
+    else scroll.SetSize( 0.95, 0.9 )
+    Scroll()
+}
+
+function Scroll() {
+    scroll.ScrollTo( 0, 999 )
+}
+</script>
+</body></html>

@@ -1,0 +1,11 @@
+{
+	"manifest" : 
+	{ 
+		"minSdkVersion" : 9,
+		"targetSdkVersion" : 28,
+		"debuggable" : false,
+		"removePermissions" : "RECORD_AUDIO,WRITE_EXTERNAL_STORAGE, ACCESS_WIFI_STATE",
+		"homeScreen":false,
+		"pathPattern":".*\\.jpg,.*\\.txt"
+	}
+}
