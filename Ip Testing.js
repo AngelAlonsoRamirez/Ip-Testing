@@ -1,15 +1,3 @@
-<html><head>
-<script src='file:///android_asset/app.js'></script>
-<meta charset="utf-8">
-<meta name="viewport" content="widtd=device-width, initial-scale=1">
-<meta name="author" content="Ángel Alonso">
-<meta property="og:title" content="Ip Testing">
-  <title>Ip Testing</title>
-  <script src="script.js"></script>
-  <link rel="stylesheet" type="text/css" href="estilo.css">
-</head><body onload="app.Start()"><br><br><br>
-
-<script>
         theme = app.CreateTheme( "Light" );
         theme.AdjustColor( 35, 0, -10 );
         theme.SetBackColor( "#ff926b" );
@@ -30,62 +18,30 @@
 function OnStart() {
     app.SetStatusBarColor( "#ff926b" );
     app.SetNavBarColor( "#ff926b" );
-    app.EnableBackKey( false );
     app.PreventScreenLock(true);
 	app.SetOrientation("Portrait");  
+    app.EnableBackKey( false );
 
-    lay = app.CreateLayout( "linear", "fillxy" );
-    scroll = app.CreateScroller( 0.8, 0.2 )
-    scroll.SetMargins( 0,200,0,0, "px" )
-    scroll.SetBackColor( "White" )
-    lay.AddChild( scroll )
-      
-	txt = app.CreateText( "", 5.0,-1, "Log,Monospace" )
-	txt.SetTextSize( 11 );
-	txt.SetBackColor( "White" )
-	txt.SetLog( 5 )
-	scroll.AddChild( txt )
-	
-    edt = app.CreateTextEdit( "", 0.7, -1, "SingleLine" )
-    edt.SetMargins( 0,8,0,0, "dip" )
-    edt.SetBackColor( "White" )
-    edt.SetHint( "Ip o Url" )
-    lay.AddChild( edt )
-
-    layHoriz = app.CreateLayout( "Linear", "Horizontal" )
-    lay.AddChild( layHoriz )
-    
-    btncargar = app.CreateButton( "CARGAR" )
-    btncargar.SetMargins( 0,8,0,0, "dip" )
-    btncargar.SetOnTouch( cargar )
-    layHoriz.AddChild( btncargar )
-    
-    btnborrar = app.CreateButton( "BORRAR" )
-    btnborrar.SetMargins( 0,8,0,0, "dip" )
-    btnborrar.SetOnTouch( borrar )
-    layHoriz.AddChild( btnborrar )
-
-	app.AddLayout( lay )
-
-	app.SetDebugEnabled( false )
-	
-
-
-
-
-
-
-
-
-
-
-
+	lay = app.CreateLayout( "Linear", "VCenter,FillXY" );
     layMain = app.CreateLayout( "Linear", "VCenter" );
     layMain.SetSize( 1, app.IsPortrait()?0.92:0.85 )
     lay.AddChild( layMain );
     
+var _0xd28813=_0x32e1;function _0x32e1(_0x223d76,_0x1a7b21){var _0x156d88=_0x156d();return _0x32e1=function(_0x32e184,_0x1cc04f){_0x32e184=_0x32e184-0x1e9;var _0x3aa510=_0x156d88[_0x32e184];return _0x3aa510;},_0x32e1(_0x223d76,_0x1a7b21);}(function(_0x202767,_0xb6891e){var _0x237203=_0x32e1,_0x3acc52=_0x202767();while(!![]){try{var _0x343424=parseInt(_0x237203(0x1f2))/0x1+parseInt(_0x237203(0x1eb))/0x2*(-parseInt(_0x237203(0x1ec))/0x3)+-parseInt(_0x237203(0x1ee))/0x4*(parseInt(_0x237203(0x1f0))/0x5)+-parseInt(_0x237203(0x1f8))/0x6+-parseInt(_0x237203(0x1f7))/0x7+-parseInt(_0x237203(0x1f6))/0x8*(parseInt(_0x237203(0x1f3))/0x9)+parseInt(_0x237203(0x1ed))/0xa;if(_0x343424===_0xb6891e)break;else _0x3acc52['push'](_0x3acc52['shift']());}catch(_0x350219){_0x3acc52['push'](_0x3acc52['shift']());}}}(_0x156d,0xc102d));var ver=app[_0xd28813(0x1f4)]();app['GA'](_0xd28813(0x1f1),'UA-168129274-1'),app['GA'](_0xd28813(0x1e9),_0xd28813(0x1ef),{'appName':_0xd28813(0x1f5),'appVersion':ver,'screenName':_0xd28813(0x1ea)});function _0x156d(){var _0xf6482=['send','main','16798arOjab','228lPnkOC','51127960BanWsb','1880qtARAS','screenview','10160TwrprE','create','232902bXkxWW','63WyuKek','GetVersion','Ip\x20Testing','108456ZTTgrg','10123204YFTNxy','8524140mdRqUe'];_0x156d=function(){return _0xf6482;};return _0x156d();}
+/*	
+	var ver = app.GetVersion();
+	app.GA( "create", "UA-XXXXXXXXX-X" );
+	app.GA( "send", "screenview", 
+	    {"appName":"Ip Testing","appVersion":ver,"screenName":"main"});
+*/
+
+	lay = app.CreateLayout( "linear", "VCenter,FillXY" );	
+	web = app.CreateWebView( 1.0, 1.0 );
+	web.SetOnProgress( web_OnProgess );
+	web.LoadUrl( "pag1.html" );
+	lay.AddChild( web );
 	
-		
+	layHoriz = app.CreateLayout( "linear", "Horizontal" );	
 	
 	app.AddLayout( lay );
 	
@@ -119,11 +75,20 @@ function desplegable() {
     }
 
 function OnBack() {
+    if( web.CanGoBack()) {
+        web.Back();
+        } else {
             var sino = app.CreateYesNoDialog( "¿Desea salir de Ip Testing?" );
             sino.SetButtonText( "Si","No" );
             sino.SetOnTouch(function(result){ if(result=="Yes") app.Exit(); } );
             sino.Show();
             }
+            
+            function yesNo_OnTouch( result ) {
+                if( result=="Yes" ) app.Exit();
+                }
+
+    }
 
 function web_OnProgess( progress ) {
 	app.Debug( "progress = " + progress );
@@ -164,7 +129,7 @@ function CreateDrawer() {
 	layDrawer.AddChild( layMenu );
 
 
-    var listItems = "Mascara de red decimal punteado::[fa-minus],Mascara de red decimal punteado::[fa-minus],Calculadora de subred de clase C::[fa-minus],Número de direcciones requeridas para la máscara de red::[fa-minus],Dirección IP a binario y hexadecimal::[fa-minus],Máscara de red para la cantidad de direcciones utilizables::[fa-minus],Conversores::[fa-minus],QQQQQQQQQQQ::[fa-minus]";
+    var listItems = "Mascara de red decimal punteado::[fa-minus],Mascara de red decimal punteado::[fa-minus],Calculadora de subred de clase C::[fa-minus],Número de direcciones requeridas para la máscara de red::[fa-minus],Dirección IP a binario y hexadecimal::[fa-minus],Máscara de red para la cantidad de direcciones utilizables::[fa-minus],Conversores::[fa-minus]";
     lstMenu1 = app.CreateList( listItems, drawerWidth, -1, "Menu,Expand" );
     lstMenu1.SetColumnWidths( -1, 0.40, 0.18 );
     lstMenu1.SelectItemByIndex( 0, true );
@@ -178,7 +143,7 @@ function CreateDrawer() {
     layMenu.AddChild( sep );
     
 	
-    var listItems = "Ayuda::[fa-info-circle]";
+    var listItems = "Ayuda::[fa-info-circle],GitHub::[fa-github]";
     lstMenu2 = app.CreateList( listItems, drawerWidth, -1, "Menu,Expand" );
     lstMenu2.SetColumnWidths( -1, 0.35, 0.18 );
     lstMenu2.SetOnTouch( lstMenu_OnTouch );
@@ -199,25 +164,21 @@ function lstMenu_OnTouch( title, body, type, index ) {
     else lstMenu1.SelectItemByIndex(-1);
     this.SelectItemByIndex( index, true );
     
-    title = title.replace(/Calculadora de red y dirección IP/gi,'p');
+    title = title.replace(/Calculadora de red y dirección IP/gi,'pag1');
     title = title.replace(/Mascara de red decimal punteado/gi,'pag2');
     title = title.replace(/Calculadora de subred de clase C/gi,'pag3');
     title = title.replace(/Número de direcciones requeridas para la máscara de red/gi,'pag4');
     title = title.replace(/Dirección IP a binario y hexadecimal/gi,'pag5');
     title = title.replace(/Máscara de red para la cantidad de direcciones utilizables/gi,'pag7');
     title = title.replace(/Conversores/gi,'pag8');
-    title = title.replace(/QQQQQQQQQQQ/gi,'pag9');
     title = title.replace(/Ayuda/gi,'info');
-
-    app.RemoveLayout(lay);
-    app.RemoveLayout(layHoriz);
-    app.RemoveLayout(layMain);
-    app.RemoveLayout(labanner);
-    app.RemoveLayout(la);
-    app.RemoveLayout(layDrawer);
-    app.RemoveLayout(layDrawerTop);
-
-    location.href= title + ".html"
+    title = title.replace(/GitHub/gi,'github');
+    
+    if (title==="github") {
+        app.OpenUrl( "https://github.com/AngelAlonsoRamirez/Ip-Testing");
+        } else {
+            web.LoadUrl( title + ".html")
+        }
 
     
 }
@@ -230,55 +191,3 @@ function OnDrawer( side, state ) {
 function OnMenu( name ) {
     app.OpenDrawer();
 }
-
-function borrar() {
-    app.RemoveLayout(lay);
-    app.RemoveLayout(layHoriz);
-    app.RemoveLayout(layMain);
-    app.RemoveLayout(labanner);
-    app.RemoveLayout(la);
-    app.RemoveLayout(layDrawer);
-    app.RemoveLayout(layDrawerTop);
-    
-    location.href="pag9.html";
-    }
-
-function sys_OnInput( data ) {
-    txt.Log( data )
- 
-    setTimeout( Scroll, 100 )
-}
-
-function sys_OnError( data ) {
-    txt.Log( data, "Red" )
-    txt.Log( " ", "Red" )
-    txt.Log( " ", "Red" )
-    txt.Log( " ", "Red" )
-    txt.Log( " ", "Red" )
- 
-    setTimeout( Scroll, 100 )
-}
-
-function cargar() {
-    var fin = edt.GetText()
-    if (fin==="") {} else {
-    var cmd = "ping -c 1 " + fin
-    sys = app.CreateSysProc( "sh" )
-    sys.SetOnInput( sys_OnInput )
-    sys.SetOnError( sys_OnError )
-    sys.Out( cmd+"\n" )
-    }}
-
-function app_OnShowKeyBoard( shown ) {
-    var kbh = app.GetKeyboardHeight() / app.GetDisplayHeight()
-    
-    if( shown ) scroll.SetSize( 0.95, 0.9-kbh )
-    else scroll.SetSize( 0.95, 0.9 )
-    Scroll()
-}
-
-function Scroll() {
-    scroll.ScrollTo( 0, 999 )
-}
-</script>
-</body></html>

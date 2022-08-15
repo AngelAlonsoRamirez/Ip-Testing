@@ -2,7 +2,7 @@
 	"manifest" : 
 	{ 
 		"minSdkVersion" : 9,
-		"targetSdkVersion" : 28,
+		"targetSdkVersion" : 33,
 		"debuggable" : false,
 		"removePermissions" : "RECORD_AUDIO,WRITE_EXTERNAL_STORAGE, ACCESS_WIFI_STATE",
 		"homeScreen":false,
