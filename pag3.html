@@ -1,0 +1,47 @@
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Ángel Alonso">
+<meta property="og:title" content="Ip Testing">
+  <title>Ip Testing</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head><body><br><br><br>
+
+
+<h3>Calculadora de subred de clase C</h3>
+    <form onsubmit="return false;"> 
+<p>
+Cantidad de subredes para crear:
+<select name="subnetbits" onChange="subnetcalc(this.form);" class="inbtn" > 
+</p>
+
+<option value="0" selected> </option>
+<option value="25">2</option>
+<option value="26">4</option>
+<option value="27">8</option>
+<option value="28">16</option>
+<option value="29">32</option>
+<option value="30">64</option>
+</select>
+
+<p>Resultado:</p>
+
+<p>
+Mascara: 
+<input name="snm_1" size="3" readonly="readonly" type="text"> 
+<input name="snm_2" size="3" readonly="readonly" type="text"> 
+<input name="snm_3" size="3" readonly="readonly" type="text"> 
+<input name="snm_4" size="3" readonly="readonly" type="text">
+</p>
+
+<p>
+Cantidad de direcciones ip utilizables por subred: <input name="numofaddr" size="4" readonly="readonly" type="text"> <br>
+</p>
+
+<p>
+Direcciones en cada subred: <input name="numofaddrused" size="4" readonly="readonly" type="text"> 
+</p>
+          </form>
+<br>
+</body></html>

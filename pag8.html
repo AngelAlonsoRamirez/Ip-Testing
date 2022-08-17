@@ -1,0 +1,89 @@
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Ángel Alonso">
+<meta property="og:title" content="Ip Testing">
+  <title>Ip Testing</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head><body><br><br><br>
+
+
+<h3>Conversor: decimal =&gt; bin, hex </h3>
+          <form onsubmit="convertnum_dec(this);return false;">
+<p>
+Decimal:<input name="num" size="11" class="in" type="text"> 
+</p>
+
+<p>
+<input id="boton1" value="Calcular" type="submit">  
+<input id="boton2" value="Reiniciar" onclick="resetform11(this.form)" type="button">
+</p>
+
+<p>
+Ressultado: 
+</p>
+
+Bin:
+<input name="bin_1" size="32" readonly="readonly" type="text"> 
+
+<p>
+Hex:
+<input name="hex_1" size="8" readonly="readonly" type="text"> 
+</p>
+
+<input  name="errortxt" placeholder="Aquí aparecerán los errores."  size="40" readonly="readonly" class="flat" type="text"> 
+          </form>
+<hr><br>
+
+
+
+<h3>Conversor: binario =&gt; dec, hex </h3>
+          <form onsubmit="convertnum_bin(this);return false;"> 
+Bin:<input name="num" size="32" class="in" type="text"> 
+
+<p>
+<input id="boton1" value="Calcular" type="submit">  
+<input id="boton2" value="Reiniciar" onclick="resetform10(this.form)" type="button">
+</p>
+
+<p>
+Resultado:
+</p>
+
+Dec:
+<input name="dec_1" size="11" readonly="readonly" type="text"> 
+
+<p>
+Hex:
+<input name="hex_1" size="8" readonly="readonly" type="text"> 
+</p>
+
+<input  name="errortxt" placeholder="Aquí aparecerán los errores."  size="40" readonly="readonly" class="flat" type="text"> 
+          </form>
+<hr><br>
+
+
+<h3>Conversor: Hex =&gt; dec, bin </h3>
+          <form onsubmit="convertnum_hex(this);return false;"> 
+Hex:<input name="num" size="8" class="in" type="text"> 
+<p>
+<input id="boton1" value="Calcular" type="submit">  
+<input id="boton2" value="Reiniciar" onclick="resetform9(this.form)" type="button">
+</p>
+
+<p>
+Resultado: 
+</p>
+
+Dec:
+<input name="dec_1" size="11" readonly="readonly" type="text"> 
+<p>
+Bin:
+<input name="bin_1" size="32" readonly="readonly" type="text"> 
+</p>
+
+<input  name="errortxt" placeholder="Aquí aparecerán los errores."  size="40" readonly="readonly" class="flat" type="text"> 
+          </form>
+<br>
+</body></html>

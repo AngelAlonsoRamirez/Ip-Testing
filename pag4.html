@@ -1,0 +1,40 @@
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Ángel Alonso">
+<meta property="og:title" content="Ip Testing">
+  <title>Ip Testing</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="estilo.css">
+</head><body><br><br><br>
+
+
+<h3>Número de direcciones requeridas para la máscara de red</h3>
+    <form onsubmit="calcNeeded(this);return false;"> 
+    <p>
+        Cantidad de direcciones necesarias:
+        <input name="numofaddr" size="4" value="5" class="in" type="text">
+    </p>
+        <input id="boton1" value="Calcular"  type="submit">  
+        <input id="boton2" value="Reiniciar" onclick="resetform6(this.form)" type="button">
+    <br>
+    <p>
+        Resultado:
+    </p>
+    <p>
+        Mascara:
+    </p>
+    <p>
+        /<input name="bits" size="4" readonly="readonly" type="text"> 
+        o
+        <input name="snm_1" size="3" readonly="readonly" type="text"> 
+        <input name="snm_2" size="3" readonly="readonly" type="text"> 
+        <input name="snm_3" size="3" readonly="readonly" type="text"> 
+        <input name="snm_4" size="3" readonly="readonly" type="text">
+    </p> 
+    <p>
+        Cantidad utilizable de direcciones: <input name="maxaddr" size="10" readonly="readonly" type="text"> 
+    </p>
+    </form>
+<br>
+</body></html>
